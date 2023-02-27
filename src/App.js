@@ -1,24 +1,34 @@
-import logo from './logo.svg';
+import {Route, Routes} from "react-router-dom";
+import {useSelector} from "react-redux";
+
+import {MinelayOuts} from './layOuts/'
+import {FilmsPage, TvShowPage, SelectedMoviePage, SelectedTvPage} from './pages'
+
 import './App.css';
 
 function App() {
+  const {dayNight}  = useSelector(state => state.movies)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className={dayNight?'Day':'Night'}>
+
+          <Routes>
+              <Route path={'/'} element={<MinelayOuts/>}>
+                  <Route path={'movies'} element={<FilmsPage/>}>
+
+                      <Route path={'selectedMoviePage'} element={<SelectedMoviePage/>}/>
+
+                  </Route>
+                  <Route path={'tvShows'} element={<TvShowPage/>}>
+
+                      <Route path={'selectedTvPage'} element={<SelectedTvPage/>}/>
+
+                  </Route>
+
+              </Route>
+          </Routes>
+      </div>
+
   );
 }
 
